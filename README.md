@@ -2,7 +2,7 @@
 CCIE in a Year
 =======
 
-![alt logo](https://github.com/emilgaripov/ccie_labs/tree/master/logo/logo.png)
+![logo](https://github.com/emilgaripov/ccie_labs/tree/master/logo/logo.png?raw=true "logo.png")
 
 # О проекте
 
