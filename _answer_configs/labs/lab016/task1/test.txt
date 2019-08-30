@@ -1,0 +1,14 @@
+R3# sh policy-map int
+ Ethernet0/1 
+
+  Service-policy output: R2
+
+    Class-map: TELNET (match-all)  
+      18 packets, 1143 bytes
+      5 minute offered rate 0000 bps
+      Match: protocol telnet
+
+    Class-map: class-default (match-any)  
+      16 packets, 1598 bytes
+      5 minute offered rate 0000 bps, drop rate 0000 bps
+      Match: any 

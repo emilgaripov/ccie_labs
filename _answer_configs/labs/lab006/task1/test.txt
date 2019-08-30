@@ -1,0 +1,53 @@
+R1#ping 255.255.255.255
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 255.255.255.255, timeout is 2 seconds:
+.
+Reply to request 1 from 192.168.10.41, 2 ms
+Reply to request 1 from 192.168.10.21, 2 ms
+Reply to request 1 from 192.168.10.31, 2 ms
+Reply to request 2 from 192.168.10.21, 3 ms
+Reply to request 2 from 192.168.10.31, 6 ms
+Reply to request 2 from 192.168.10.41, 4 ms
+Reply to request 3 from 192.168.10.41, 4 ms
+Reply to request 3 from 192.168.10.31, 4 ms
+Reply to request 3 from 192.168.10.21, 4 ms
+Reply to request 4 from 192.168.10.41, 9 ms
+Reply to request 4 from 192.168.10.21, 9 ms
+Reply to request 4 from 192.168.10.31, 9 ms
+
+SW2#ping 255.255.255.255
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 255.255.255.255, timeout is 2 seconds:
+
+Reply to request 0 from 192.168.10.31, 21 ms
+Reply to request 1 from 192.168.10.31, 2 ms
+Reply to request 1 from 192.168.10.11, 2 ms
+Reply to request 2 from 192.168.10.11, 9 ms
+Reply to request 2 from 192.168.10.31, 14 ms
+Reply to request 3 from 192.168.10.31, 15 ms
+Reply to request 3 from 192.168.10.11, 15 ms
+Reply to request 4 from 192.168.10.31, 9 ms
+Reply to request 4 from 192.168.10.11, 9 ms
+
+SW3#ping 255.255.255.255
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 255.255.255.255, timeout is 2 seconds:
+
+Reply to request 0 from 192.168.10.21, 14 ms
+Reply to request 1 from 192.168.10.11, 2 ms
+Reply to request 1 from 192.168.10.21, 3 ms
+Reply to request 2 from 192.168.10.21, 3 ms
+Reply to request 2 from 192.168.10.11, 3 ms
+Reply to request 3 from 192.168.10.11, 10 ms
+Reply to request 3 from 192.168.10.21, 10 ms
+Reply to request 4 from 192.168.10.11, 3 ms
+Reply to request 4 from 192.168.10.21, 3 ms
+
+SW4#ping 255.255.255.255
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 255.255.255.255, timeout is 2 seconds:
+.
+Reply to request 1 from 192.168.10.11, 2 ms
+Reply to request 2 from 192.168.10.11, 8 ms
+Reply to request 3 from 192.168.10.11, 8 ms
+Reply to request 4 from 192.168.10.11, 6 ms

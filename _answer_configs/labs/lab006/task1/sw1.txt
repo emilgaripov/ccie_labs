@@ -1,0 +1,149 @@
+!
+version 15.1
+no service pad
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+service compress-config
+!
+hostname SW1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging discriminator EXCESS severity drops 6 msg-body drops EXCESSCOLL
+logging buffered 50000
+logging console discriminator EXCESS
+!
+no aaa new-model
+!
+ip cef
+!
+!
+no ip domain-lookup
+no ipv6 cef
+ipv6 multicast rpf use-bgp
+!
+!
+!
+vtp mode transparent
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+vlan 11
+  private-vlan primary
+  private-vlan association 3030-3031
+!
+vlan 3030
+  private-vlan isolated
+!
+vlan 3031
+  private-vlan community
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport private-vlan mapping 11 3030-3031
+ switchport mode private-vlan promiscuous
+!
+interface Ethernet0/1
+ duplex auto
+ shutdown
+!
+interface Ethernet0/2
+ duplex auto
+ shutdown
+!
+interface Ethernet0/3
+ duplex auto
+ shutdown
+!
+interface Ethernet1/0
+ duplex auto
+ shutdown
+!
+interface Ethernet1/1
+ duplex auto
+ shutdown
+!
+interface Ethernet1/2
+ duplex auto
+ shutdown
+!
+interface Ethernet1/3
+ duplex auto
+ shutdown
+!
+interface Ethernet2/0
+ shutdown
+!
+interface Ethernet2/1
+ shutdown
+!
+interface Ethernet2/2
+ switchport private-vlan host-association 11 3031
+ switchport mode private-vlan host
+!
+interface Ethernet2/3
+ shutdown
+!
+interface Ethernet3/0
+ shutdown
+!
+interface Ethernet3/1
+ switchport private-vlan host-association 11 3031
+ switchport mode private-vlan host
+!
+interface Ethernet3/2
+ shutdown
+!
+interface Ethernet3/3
+ switchport private-vlan host-association 11 3030
+ switchport mode private-vlan host
+!
+!
+interface Vlan1
+ no ip address
+!
+!
+no ip http server
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************
+********** LAB 6 TASK 1 **********
+***********************************
+***********************************
+^C
+!
+line con 0
+ privilege level 15
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+!
+end

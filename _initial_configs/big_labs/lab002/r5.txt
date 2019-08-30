@@ -1,0 +1,338 @@
+Building configuration...
+
+Current configuration : 8027 bytes
+!
+! Last configuration change at 11:41:37 CET Mon Jun 6 2016
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R5
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip domain name linkmeup.ru
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+ip ssh version 2
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.5.5 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::5:5/128
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ ip address 10.0.0.5 255.255.255.0
+!
+interface Ethernet0/1.5
+ encapsulation dot1Q 5
+ ip address 188.1.5.5 255.255.255.0
+ ipv6 address 2001:CC1E:1:5::5/64
+!
+interface Ethernet0/1.235
+ encapsulation dot1Q 235
+ ipv6 address 2001:CC1E:1:235::5/64
+!
+interface Ethernet0/1.456
+ description UNUSED IN THIS LAB
+ encapsulation dot1Q 456
+ ip address 188.1.45.5 255.255.255.0
+ shutdown
+ ipv6 address 2001:CC1E:1:45::5/64
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ip access-list extended C-3PO
+ permit ip any host 188.1.1.1
+ permit ip any host 188.1.2.2
+ permit ip any host 188.1.3.3
+ permit ip any host 188.1.4.4
+ permit ip any host 188.1.5.5
+ permit ip any host 188.1.6.6
+ permit ip any host 188.1.7.7
+ permit ip any host 188.1.8.8
+ permit ip any host 188.1.9.9
+ permit ip any host 188.1.10.10
+ permit ip host 188.1.1.1 any
+ permit ip host 188.1.2.2 any
+ permit ip host 188.1.3.3 any
+ permit ip host 188.1.4.4 any
+ permit ip host 188.1.5.5 any
+ permit ip host 188.1.6.6 any
+ permit ip host 188.1.7.7 any
+ permit ip host 188.1.8.8 any
+ permit ip host 188.1.9.9 any
+ permit ip host 188.1.10.10 any
+ permit tcp any any eq telnet
+ permit tcp any any eq 22
+ permit ip any host 180.1.12.1
+ permit ip any host 180.1.12.2
+ permit ip any host 180.1.23.3
+ permit ip any host 180.1.23.2
+ permit ip any host 180.1.45.5
+ permit ip any host 180.1.45.6
+ permit ip any host 180.1.67.7
+ permit ip any host 180.1.89.8
+ permit ip any host 180.1.89.9
+ permit ip any host 180.1.109.10
+ permit ip host 180.1.12.1 any
+ permit ip host 180.1.12.2 any
+ permit ip host 180.1.23.3 any
+ permit ip host 180.1.23.2 any
+ permit ip host 180.1.45.5 any
+ permit ip host 180.1.45.6 any
+ permit ip host 180.1.67.7 any
+ permit ip host 180.1.89.8 any
+ permit ip host 180.1.89.9 any
+ permit ip host 180.1.109.10 any
+ deny   ip 192.0.0.0 63.255.255.255 any
+ deny   ip any 192.0.0.0 63.255.255.255
+ permit ip 128.0.0.0 127.255.255.255 any
+ permit ip any 128.0.0.0 127.255.255.255
+ip access-list extended Chewbacca
+ deny   ip any 10.0.0.0 0.255.255.255
+ deny   ip 10.0.0.0 0.255.255.255 any
+ permit tcp any any eq 22
+ permit tcp any eq 22 any
+ permit tcp any any eq telnet
+ permit tcp any eq telnet any
+ permit tcp any any eq tacacs
+ permit tcp any eq tacacs any
+ permit udp any any eq tftp
+ permit udp any eq tftp any
+ permit udp any any eq bootps
+ permit udp any any eq bootpc
+ permit udp any eq bootps any
+ permit tcp any any eq 88
+ permit tcp any eq 88 any
+ permit tcp any any eq domain
+ permit udp any any eq domain
+ permit tcp any eq domain any
+ permit udp any eq domain any
+ permit udp any any eq isakmp
+ permit udp any eq isakmp any
+ permit udp any any eq syslog
+ permit udp any any eq ntp
+ permit tcp any any eq bgp
+ permit tcp any eq bgp any
+ permit tcp any any eq 389
+ permit tcp any eq 389 any
+ permit udp any eq syslog any
+ permit tcp any any eq 636
+ permit tcp any eq 636 any
+ permit udp any any eq 749
+ permit udp any eq 749 any
+ permit icmp any any
+ permit tcp any any eq 1194
+ permit tcp any eq 1194 any
+ permit tcp any any eq 1292
+ permit tcp any eq 1292 any
+ permit tcp any any eq 1723
+ permit tcp any eq 1723 any
+ permit udp any any eq 1812
+ permit udp any eq 1812 any
+ permit udp any any eq 1813
+ permit udp any eq 1813 any
+ permit tcp any any eq 3389
+ permit tcp any eq 3389 any
+ permit tcp any any eq 5900
+ permit tcp any eq 5900 any
+ permit gre any any
+ permit udp any any eq 1645
+ permit udp any eq 1645 any
+ permit udp any any eq 1646
+ permit udp any eq 1646 any
+ permit tcp any any eq 8080
+ permit tcp any eq 8080 any
+ permit tcp any any eq 8443
+ permit tcp any eq 8443 any
+ip access-list extended Darth_Vader
+ deny   icmp any host 180.1.5.5
+ deny   icmp any host 180.1.2.2
+ deny   icmp any host 180.1.1.1
+ deny   udp any any eq bootps
+ deny   tcp any any eq 22
+ permit ip any any
+ip access-list extended Luke_Skywalker
+ deny   tcp any any eq www
+ deny   tcp any any eq 22
+ permit ip any any
+ip access-list extended Obi-Wan
+ permit gre any any
+ permit udp any any eq 1645
+ permit udp any eq 1645 any
+ permit tcp any any eq telnet
+ permit tcp any eq telnet any
+ permit tcp any any eq 22
+ permit tcp any eq 22 any
+ permit ip any host 188.1.1.1
+ permit ip any host 188.1.2.2
+ permit ip any host 188.1.3.3
+ permit ip any host 188.1.4.4
+ permit ip any host 188.1.8.8
+ permit ip any host 188.1.9.9
+ permit ip any host 188.1.10.10
+ permit ip host 188.1.3.3 any
+ permit ip host 188.1.4.4 any
+ permit ip host 188.1.5.5 any
+ permit ip host 188.1.6.6 any
+ permit ip host 188.1.7.7 any
+ permit ip host 188.1.8.8 any
+ permit ip host 188.1.9.9 any
+ permit ip host 188.1.10.10 any
+ permit icmp host 188.1.12.1 any
+ permit icmp host 188.1.12.2 any
+ permit icmp host 188.1.23.3 any
+ permit icmp host 188.1.23.2 any
+ permit icmp host 188.1.45.5 any
+ permit icmp host 188.1.45.6 any
+ permit icmp host 188.1.67.7 any
+ permit icmp host 188.1.89.8 any
+ permit icmp host 188.1.89.9 any
+ permit icmp host 188.1.109.10 any
+ip access-list extended R2-D2
+ permit ip any host 180.1.1.1
+ permit ip any host 180.1.2.2
+ permit ip any host 180.1.3.3
+ permit ip any host 180.1.4.4
+ permit ip any host 180.1.5.5
+ permit ip any host 180.1.6.6
+ permit ip any host 180.1.7.7
+ permit ip any host 180.1.8.8
+ permit ip any host 180.1.9.9
+ permit ip any host 180.1.10.10
+ permit ip host 180.1.1.1 any
+ permit ip host 180.1.2.2 any
+ permit ip host 180.1.3.3 any
+ permit ip host 180.1.4.4 any
+ permit ip host 180.1.5.5 any
+ permit ip host 180.1.6.6 any
+ permit ip host 180.1.7.7 any
+ permit ip host 180.1.8.8 any
+ permit ip host 180.1.9.9 any
+ permit ip host 180.1.10.10 any
+ permit ip any host 188.1.12.1
+ permit ip any host 188.1.12.2
+ permit ip any host 188.1.23.3
+ permit ip any host 188.1.23.2
+ permit ip any host 188.1.45.5
+ permit ip any host 188.1.45.6
+ permit ip any host 188.1.67.7
+ permit ip any host 188.1.89.8
+ permit ip any host 188.1.89.9
+ permit ip any host 188.1.109.10
+ permit icmp host 188.1.12.1 any
+ permit icmp host 188.1.12.2 any
+ permit icmp host 188.1.23.3 any
+ permit icmp host 188.1.23.2 any
+ permit icmp host 188.1.45.5 any
+ permit icmp host 188.1.45.6 any
+ permit icmp host 188.1.67.7 any
+ permit icmp host 188.1.89.8 any
+ permit icmp host 188.1.89.9 any
+ permit icmp host 188.1.109.10 any
+ permit ip any any dscp af21
+ permit ip any any dscp af23
+ permit ip any any dscp af41
+ permit ip any any dscp af31
+ permit ip any any dscp ef
+ permit ip any any dscp af11
+!
+ip sla responder
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+event manager applet Yoda
+ event cli pattern "^sh.*log" sync no skip no
+ action 1.0 syslog msg "If into the security recordings you go, only pain will you find."
+!
+end
+

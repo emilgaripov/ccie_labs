@@ -1,0 +1,14 @@
+R1# sh policy-map int s1/0 | i Service-policy output:|Match| bandwidth|queue limit|Fair-queue: per-flow queue limit
+ Service-policy output: HQF
+      Match: protocol telnet
+      queue limit 64 packets
+      bandwidth 10% (154 kbps)
+      Match: protocol smtp
+      queue limit 64 packets
+      bandwidth 20% (308 kbps)
+      Match: protocol http
+      queue limit 64 packets
+      bandwidth 30% (463 kbps)
+      Fair-queue: per-flow queue limit 16 packets
+      Match: any 
+      queue limit 64 packets

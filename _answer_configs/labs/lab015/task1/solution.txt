@@ -1,0 +1,179 @@
+########R1##########
+
+router rip
+ version 2
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ no auto-summary
+
+
+########R2##########
+
+
+router rip
+ version 2
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ no auto-summary
+
+
+########R3#########
+
+key chain KEY2  //другое имя ключа не ошибка
+ key 1
+  key-string CCIEtoBE
+
+
+interface Ethernet0/1.34
+ encapsulation dot1Q 34
+ ip address 188.1.34.3 255.255.255.0
+ ip rip authentication key-chain KEY2 // другое имя ключа не ошибка
+
+router rip
+ version 2
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ no auto-summary
+
+
+
+#########R4#########
+
+key chain KEY1   // другое имя ключа не ошибка
+ key 1
+  key-string CCIEinaYEAR
+!
+key chain KEY2  // другое имя ключа не ошибка
+ key 1
+  key-string CCIEtoBE
+!
+interface Ethernet0/1.34
+ encapsulation dot1Q 34
+ ip address 188.1.34.4 255.255.255.0
+ ip rip authentication key-chain KEY2
+!
+interface Ethernet0/1.456
+ encapsulation dot1Q 456
+ ip address 188.1.45.4 255.255.255.0
+ ip rip authentication mode md5
+ ip rip authentication key-chain KEY1
+!
+router rip
+ version 2
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ no auto-summary
+
+
+
+########R5#########
+
+
+key chain KEY1 // другое имя ключа не ошибка
+ key 1
+  key-string CCIEinaYEAR
+
+interface Ethernet0/1.456
+ encapsulation dot1Q 456
+ ip address 188.1.45.5 255.255.255.0
+ ip rip authentication mode md5
+ ip rip authentication key-chain KEY1
+
+
+
+router rip
+ version 2
+ passive-interface Ethernet0/1.5
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ no auto-summary
+
+
+
+#########R6#########
+key chain KEY1   // другое имя ключа не ошибка
+ key 1
+  key-string CCIEinaYEAR
+
+
+interface Ethernet0/1.456
+ encapsulation dot1Q 456
+ ip address 188.1.45.6 255.255.255.0
+ ip rip authentication mode md5
+ ip rip authentication key-chain KEY1 //другое имя ключа не ошибка
+
+
+router rip
+ version 2
+ passive-interface Ethernet0/1.6
+ passive-interface Ethernet0/1.67
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ neighbor 188.1.67.7
+ no auto-summary
+
+
+##########R7###########
+
+router rip
+ version 2
+ passive-interface Ethernet0/1.7
+ passive-interface Ethernet0/1.67
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ neighbor 188.1.67.6
+ no auto-summary
+
+
+##########R8##########
+
+router rip
+ version 2
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ no auto-summary
+
+
+
+#########R9########
+interface Ethernet0/1.109
+ encapsulation dot1Q 109
+ ip address 188.1.109.9 255.255.255.0
+ ip rip send version 2
+ ip rip receive version 2
+
+router rip
+ version 2
+ passive-interface Ethernet0/1.9
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ no auto-summary
+
+
+
+#######R10#########
+
+
+interface Ethernet0/1.109
+ encapsulation dot1Q 109
+ ip address 188.1.109.10 255.255.255.0
+ ip rip send version 2
+ ip rip receive version 2
+
+
+router rip
+ version 2
+ passive-interface Ethernet0/1.10
+ passive-interface Loopback0
+ network 180.1.0.0
+ network 188.1.0.0
+ no auto-summary

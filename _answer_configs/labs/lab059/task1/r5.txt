@@ -1,0 +1,132 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R5
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!         
+!
+!
+!
+!
+username R1 privilege 15 password 0 RSH 
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+no ip rcmd domain-lookup
+ip rcmd rsh-enable
+ip rcmd remote-host R1 10 R1 enable
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+buffers small permanent 90
+buffers small max-free 200
+buffers small min-free 10
+buffers small initial 250
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.5.5 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::5:5/128
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ ip address 10.0.0.5 255.255.255.0
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+access-list 10 permit 10.0.0.1
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^CC
+***********************************
+***********************************
+********** LAB 59 TASK 1 **********
+***********************************
+***********************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ no login
+ transport preferred none
+ transport input telnet
+!
+!
+end

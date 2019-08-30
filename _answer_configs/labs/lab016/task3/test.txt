@@ -1,0 +1,11 @@
+R1# show policy-map int s1/0 | i Service-policy output:|Match| bandwidth|Priority
+     Service-policy output: LLQ
+      Match: protocol rtp
+      Priority: Strict, b/w exceed drops: 0
+      Match: protocol telnet
+      bandwidth remaining 10%
+      Match: protocol http
+      bandwidth remaining 30%
+      Match: protocol smtp
+      bandwidth remaining 20%
+      Match: any 

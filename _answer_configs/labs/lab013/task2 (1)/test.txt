@@ -1,0 +1,14 @@
+SW1#ping 255.255.255.255     
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 255.255.255.255, timeout is 2 seconds:
+Reply to request 0 from 10.10.20.20, 3 ms
+Reply to request 1 from 10.10.30.30, 2 ms
+Reply to request 1 from 10.10.40.40, 3 ms
+Reply to request 1 from 10.10.20.20, 2 ms
+Reply to request 2 from 10.10.40.40, 2 ms
+Reply to request 2 from 10.10.20.20, 2 ms
+Reply to request 2 from 10.10.30.30, 2 ms
+Reply to request 3 from 10.10.20.20, 3 ms
+Reply to request 3 from 10.10.30.30, 4 ms
+Reply to request 4 from 10.10.30.30, 1 ms
+Reply to request 4 from 10.10.20.20, 2 ms

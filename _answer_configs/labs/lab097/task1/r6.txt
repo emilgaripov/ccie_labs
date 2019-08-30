@@ -1,0 +1,201 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R6
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.6.6 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::6:6/128
+!
+interface Tunnel0
+ ip address 188.1.100.6 255.255.255.0
+ no ip redirects
+ ip nhrp authentication LSAOPTIM
+ ip nhrp map multicast 144.1.0.7
+ ip nhrp map 188.1.100.7 144.1.0.7
+ ip nhrp network-id 100
+ ip nhrp nhs 188.1.100.7
+ ip ospf network broadcast
+ ip ospf dead-interval minimal hello-multiplier 5
+ ip ospf priority 0
+ ip ospf 100 area 72
+ tunnel source Ethernet0/1.144
+ tunnel mode gre multipoint
+ tunnel key 10000
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!         
+interface Ethernet0/1
+ no ip address
+!
+interface Ethernet0/1.6
+ encapsulation dot1Q 6
+ ip address 188.1.6.6 255.255.255.0
+ ipv6 address 2001:CC1E:1:6::6/64
+!
+interface Ethernet0/1.67
+ encapsulation dot1Q 67
+ ip address 188.1.67.6 255.255.255.0
+ ipv6 address 2001:CC1E:1:67::6/64
+!
+interface Ethernet0/1.144
+ encapsulation dot1Q 144
+ ip address 144.1.0.6 255.255.255.0
+ ipv6 address 2001:C15C:0:1::6/64
+!
+interface Ethernet0/1.456
+ encapsulation dot1Q 456
+ ip address 188.1.45.6 255.255.255.0
+ ipv6 address 2001:CC1E:1:45::6/64
+!         
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+router ospf 100
+ timers throttle spf 5 1000 90000
+ timers pacing lsa-group 75
+ timers pacing flood 50
+ timers pacing retransmission 100
+!
+router bgp 65542
+ bgp log-neighbor-changes
+ network 0.0.0.0
+ neighbor LSA peer-group
+ neighbor LSA ebgp-multihop 2
+ neighbor LSA update-source Loopback0
+ neighbor 180.1.4.4 remote-as 4
+ neighbor 180.1.4.4 peer-group LSA
+ neighbor 180.1.5.5 remote-as 5
+ neighbor 180.1.5.5 peer-group LSA
+ neighbor 180.1.7.7 remote-as 65543
+ neighbor 180.1.7.7 peer-group LSA
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 Null0
+ip route 180.1.4.4 255.255.255.255 Ethernet0/1.456
+ip route 180.1.5.5 255.255.255.255 Ethernet0/1.456
+ip route 180.1.7.7 255.255.255.255 188.1.67.7
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!         
+!
+!
+banner motd ^CCC
+
+
+
+***********************************
+
+
+
+***********************************
+
+
+
+********** LAB 97 TASK 1 **********
+
+
+
+***********************************
+
+
+
+          
+***********************************
+
+          
+
+^C
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ no login
+ transport preferred none
+ transport input telnet
+!
+!
+end

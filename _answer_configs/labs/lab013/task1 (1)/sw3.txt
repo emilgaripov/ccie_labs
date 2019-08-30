@@ -1,0 +1,165 @@
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+!
+!
+!
+!
+!
+vtp domain CCIEinaYEAR
+vtp mode transparent
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 5-13,23,31,34,37,45,58,67,78-79,89,91,100,108,144,146,235,998
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel31
+ switchport access vlan 31
+ switchport mode access
+!
+interface Ethernet0/0
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet0/1
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet0/2
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet0/3
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/0
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/1
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/2
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet2/0
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet2/1
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet2/2
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet2/3
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet3/0
+ switchport access vlan 31
+ switchport mode access
+ channel-group 31 mode auto
+!
+interface Ethernet3/1
+ switchport access vlan 31
+ switchport mode access
+ channel-group 31 mode auto
+!
+interface Ethernet3/2
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+interface Ethernet3/3
+ switchport access vlan 998
+ switchport mode access
+ shutdown
+!
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************
+********** LAB 13 TASK 1 **********
+***********************************
+***********************************
+^C
+!
+line con 0
+ privilege level 15
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+!
+!
+end

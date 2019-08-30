@@ -1,0 +1,174 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.1.1 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::1:1/128
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ ip address 10.10.10.1 255.255.255.0
+!
+interface Ethernet0/1.12
+ encapsulation dot1Q 12
+ ip address 188.1.12.1 255.255.255.0
+ ip access-group RIP in
+ ipv6 address 2001:CC1E:1:12::1/64
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown 
+!
+interface Serial1/0
+ no ip address
+ encapsulation ppp
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/1
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+router rip
+ version 2
+ network 180.1.0.0
+ network 188.1.0.0
+ no auto-summary
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ip access-list extended RIP
+ permit ip 188.1.12.0 0.0.0.3 188.1.12.0 0.0.0.3
+ permit ip 188.1.23.0 0.0.0.3 188.1.23.0 0.0.0.3
+ permit ip 188.1.235.0 0.0.0.3 188.1.235.0 0.0.0.3
+ permit ip 180.1.0.0 0.0.3.255 180.1.0.0 0.0.3.255
+ permit udp any host 224.0.0.9 eq rip
+ permit icmp any any
+ deny   eigrp any host 224.0.0.10
+ deny   ospf any host 224.0.0.5
+ deny   ospf any host 224.0.0.6
+!
+!         
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^CC
+
+***********************************
+
+***********************************
+
+********** LAB 48 TASK 1 **********
+
+***********************************
+
+***********************************
+
+          
+^C
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ no login
+ transport preferred none
+ transport input telnet
+!
+!
+end

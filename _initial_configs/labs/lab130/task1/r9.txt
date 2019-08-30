@@ -1,0 +1,186 @@
+
+!
+! Last configuration change at 22:20:04 CET Sun Mar 27 2016
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R9
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+!
+!
+!
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.9.9 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::9:9/128
+!
+interface Multilink1
+ ip address 188.1.109.9 255.255.255.0
+ ppp multilink
+ ppp multilink group 1
+ no shutdown
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no ip address
+ no shutdown
+!
+interface Ethernet0/1.9
+ encapsulation dot1Q 9
+ ip address 188.1.9.9 255.255.255.0
+ ipv6 address 2001:CC1E:1:9::9/64
+!
+interface Ethernet0/1.89
+ encapsulation dot1Q 89
+ ip address 188.1.89.9 255.255.255.0
+ ipv6 address 2001:CC1E:1:89::9/64
+!
+interface Ethernet0/1.109
+ encapsulation dot1Q 109
+ ip address 188.1.109.9 255.255.255.0
+ ipv6 address 2001:CC1E:1:109::9/64
+ shutdown
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Serial1/0
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+ serial restart-delay 0
+ no shutdown
+!
+interface Serial1/1
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+ serial restart-delay 0
+ no shutdown
+!
+interface Serial1/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************
+***********************************
+********** LAB 130 TASK 1 **********
+***********************************
+***********************************
+^C
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ no login
+ transport preferred none
+ transport input telnet
+!
+!
+end

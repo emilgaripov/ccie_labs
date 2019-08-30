@@ -1,0 +1,62 @@
+SW1# sh spanning-tree vlan 40
+
+VLAN0040
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    24616
+             Address     aabb.cc00.0e00
+             Cost        112
+             Port        65 (Port-channel12)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32808  (priority 32768 sys-id-ext 40)
+             Address     aabb.cc00.0b00
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po12                Root FWD 56        128.65   Shr
+Po14                Altn BLK 1000      128.66   Shr
+Po13                Altn BLK 999       128.67   Shr
+
+SW2#sh spanning-tree vlan 30
+
+VLAN0030
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    20510
+             Address     aabb.cc00.0d00
+             Cost        112
+             Port        67 (Port-channel24)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32798  (priority 32768 sys-id-ext 30)
+             Address     aabb.cc00.0c00
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po12                Altn BLK 999       128.65   Shr
+Po23                Altn BLK 1000      128.66   Shr
+Po24                Root FWD 56        128.67   Shr
+
+SW3# sh spanning-tree vlan 20
+
+VLAN0020
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    24596
+             Address     aabb.cc00.0c00
+             Cost        112
+             Port        65 (Port-channel13)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32788  (priority 32768 sys-id-ext 20)
+             Address     aabb.cc00.0d00
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po13                Root FWD 56        128.65   Shr
+Po23                Altn BLK 1000      128.66   Shr
+Po34                Altn BLK 999       128.67   Shr

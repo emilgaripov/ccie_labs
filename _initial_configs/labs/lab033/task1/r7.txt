@@ -1,0 +1,128 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R7
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+no ip domain-lookup
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.7.7 255.255.255.255
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no ip address
+!
+interface Ethernet0/1.7
+ encapsulation dot1Q 7
+ ip address 188.1.7.7 255.255.255.0
+!
+interface Ethernet0/1.67
+ encapsulation dot1Q 67
+ ip address 188.1.67.7 255.255.255.0
+!
+interface Ethernet0/1.78
+ encapsulation dot1Q 78
+ ip address 188.1.78.7 255.255.255.0
+!
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************
+********** LAB 32 TASK 1 **********
+***********************************
+***********************************
+^C
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ privilege level 15
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet
+!
+!
+end

@@ -1,0 +1,182 @@
+
+!
+! Last Configuration Change At 22:21:58 Cet Sun Mar 27 2016
+!
+Version 15.5
+Service Timestamps Debug Datetime Msec
+Service Timestamps Log Datetime Msec
+No Service Password-Encryption
+!
+Hostname R10
+!
+Boot-Start-Marker
+Boot-End-Marker
+!
+Aqm-Register-Fnf
+!
+!
+No Aaa New-Model
+!
+!
+!
+Clock Timezone Cet 1 0
+Mmi Polling-Interval 60
+No Mmi Auto-Configure
+No Mmi Pvc
+Mmi Snmp-Timeout 180
+!
+!
+!
+!
+!
+No Ip Icmp Rate-Limit Unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+Ip Cef
+No Ipv6 Cef
+!
+Multilink Bundle-Name Authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+Redundancy
+!
+!
+Ip Tcp Synwait-Time 5
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+Interface Loopback0
+ Ip Address 180.1.10.10 255.255.255.255
+ Ipv6 Address 2001:C0ff:Ee:1::10:10/128
+!
+Interface Multilink1
+ Ip Address 188.1.109.10 255.255.255.0
+ Ppp Multilink
+ Ppp Multilink Group 1
+ No Shutdown
+!
+Interface Ethernet0/0
+ No Ip Address
+ Shutdown
+!
+Interface Ethernet0/1
+ no ip address
+ No Shutdown
+!
+Interface Ethernet0/1.10
+ Encapsulation Dot1q 10
+ Ip Address 188.1.10.10 255.255.255.0
+ Ipv6 Address 2001:Cc1e:1:10::10/64
+!
+Interface Ethernet0/1.109
+ Encapsulation Dot1q 109
+ Ip Address 188.1.109.10 255.255.255.0
+ Ipv6 Address 2001:Cc1e:1:109::10/64
+ Shutdown
+!
+Interface Ethernet0/2
+ No Ip Address
+ Shutdown
+!
+Interface Ethernet0/3
+ No Ip Address
+ Shutdown
+!
+Interface Serial1/0
+ No Ip Address
+ Encapsulation Ppp
+ Ppp Multilink
+ Ppp Multilink Group 1
+ Serial Restart-Delay 0
+ No Shutdown
+!
+Interface Serial1/1
+ No Ip Address
+ Encapsulation Ppp
+ Ppp Multilink
+ Ppp Multilink Group 1
+ Serial Restart-Delay 0
+ No Shutdown
+!
+Interface Serial1/2
+ No Ip Address
+ Shutdown
+ Serial Restart-Delay 0
+!
+Interface Serial1/3
+ no Ip Address
+ Shutdown
+ Serial Restart-Delay 0
+!
+!
+Ip Forward-Protocol Nd
+!
+!
+No Ip Http Server
+No Ip Http Secure-Server
+!
+!
+!
+!
+Control-Plane
+!
+Banner Motd ^C
+***********************************
+***********************************
+********** Lab 67 Task 1 **********
+***********************************
+***********************************
+^C
+!
+!
+!
+!
+!
+!
+!
+Line Con 0
+ Exec-Timeout 0 0
+ Privilege Level 15
+ Logging Synchronous
+ Transport Preferred None
+Line Aux 0
+Line Vty 0 4
+ Privilege Level 15
+ No Login
+ Transport Preferred None
+ Transport Input Telnet
+!
+!
+End

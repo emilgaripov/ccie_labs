@@ -1,0 +1,14 @@
+SW1#ssh -l CCIEadmin -p 4040 188.1.40.1
+%SYS-5-CONFIG_I: Configured from console by console
+SW1#ssh -l CCIEadmin -p 4040 188.1.40.1
+Password: 
+
+SW4>en
+Password: 
+SW4#
+
+SW4#
+%SSH-5-SSH2_SESSION: SSH2 Session request from 188.1.40.2 (tty = 4) using crypto cipher 'aes128-ctr', hmac 'hmac-sha1' Succeeded
+SW4#
+%SSH-5-SSH2_USERAUTH: User 'CCIEadmin' authentication for SSH2 Session from 188.1.40.2 (tty = 4) using crypto cipher 'aes128-ctr', hmac 'hmac-sha1' Succeeded
+

@@ -1,0 +1,23 @@
+R1#ping 188.1.12.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 188.1.12.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 9/9/10 ms
+
+R2#ping 188.1.12.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 188.1.12.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 9/9/9 ms
+
+R9#ping 188.1.91.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 188.1.91.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 9/9/10 ms
+
+R10#   ping 1.2.3.4
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 1.2.3.4, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 9/9/10 ms

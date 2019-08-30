@@ -1,0 +1,169 @@
+!
+version 15.2
+no service pad
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+service compress-config
+!
+hostname SW1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging discriminator EXCESS severity drops 6 msg-body drops EXCESSCOLL
+logging buffered 50000
+logging console discriminator EXCESS
+!
+no aaa new-model
+clock timezone UZT 5 0
+!
+!
+!
+!
+!
+vtp mode transparent
+!
+!
+!
+ip dhcp snooping vlan 235
+ip dhcp snooping
+no ip domain-lookup
+ip dhcp-server 188.1.235.2
+ip cef
+ipv6 multicast rpf use-bgp
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 5-7,9-12,23,34,45,67,78,89,91,144,235
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ no shutdown
+!
+interface Ethernet0/1
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree portfast edge trunk
+ ip dhcp snooping trust
+!
+interface Ethernet0/2
+ no shutdown
+!
+interface Ethernet0/3
+ no shutdown
+!
+interface Ethernet1/0
+ no shutdown
+!
+interface Ethernet1/1
+ no shutdown
+!
+interface Ethernet1/2
+ no shutdown
+!
+interface Ethernet1/3
+ no shutdown
+!
+interface Ethernet2/0
+ no shutdown
+!
+interface Ethernet2/1
+ no shutdown
+!
+interface Ethernet2/2
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree link-type point-to-point
+ ip dhcp snooping limit rate 100
+!
+interface Ethernet2/3
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree link-type point-to-point
+ ip dhcp snooping limit rate 100
+!
+interface Ethernet3/0
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree link-type point-to-point
+ ip dhcp snooping trust
+!
+interface Ethernet3/1
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree link-type point-to-point
+ ip dhcp snooping trust
+!
+interface Ethernet3/2
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree link-type point-to-point
+ ip dhcp snooping trust
+!
+interface Ethernet3/3
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree link-type point-to-point
+ ip dhcp snooping trust
+!
+interface Vlan1
+ no shutdown
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************
+********** LAB 24 TASK 1 **********
+***********************************
+***********************************
+^C
+!
+line con 0
+ privilege level 15
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+!
+!
+end

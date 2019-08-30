@@ -1,0 +1,45 @@
+R9#sh cdp neighbors detail
+-------------------------
+Device ID: R10
+Entry address(es):
+  IP address: 180.1.10.10
+Platform: Linux Unix,  Capabilities: Router Source-Route-Bridge
+Interface: Serial1/0,  Port ID (outgoing port): Serial1/0
+Holdtime : 23 sec
+Second Port Status: Unknown
+
+Version :
+Cisco IOS Software, Linux Software (I86BI_LINUX-ADVENTERPRISEK9-M), Version 15.4(2)T, DEVELOPMENT TEST SOFTWARE
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2014 by Cisco Systems, Inc.
+Compiled Thu 27-Mar-14 01:08 by prod_rel_team
+
+advertisement version: 2
+Management address(es):
+  IP address: 188.1.109.10
+
+
+Total cdp entries displayed : 1
+
+R10#sh cdp neighbors detail
+-------------------------
+Device ID: R9
+Entry address(es):
+  IP address: 180.1.9.9
+Platform: Linux Unix,  Capabilities: Router Source-Route-Bridge
+Interface: Serial1/0,  Port ID (outgoing port): Serial1/0
+Holdtime : 26 sec
+Second Port Status: Unknown
+
+Version :
+Cisco IOS Software, Linux Software (I86BI_LINUX-ADVENTERPRISEK9-M), Version 15.4(2)T, DEVELOPMENT TEST SOFTWARE
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2014 by Cisco Systems, Inc.
+Compiled Thu 27-Mar-14 01:08 by prod_rel_team
+
+advertisement version: 2
+Management address(es):
+  IP address: 188.1.109.9
+
+
+Total cdp entries displayed : 1

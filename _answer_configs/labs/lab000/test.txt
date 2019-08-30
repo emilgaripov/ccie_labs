@@ -1,0 +1,34 @@
+r1#ping 8.8.8.8
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 8.8.8.8, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+
+r2#traceroute 90.0.0.9 source 33.0.0.2
+Type escape sequence to abort.
+Tracing the route to 90.0.0.9
+VRF info: (vrf in name/id, vrf out name/id)
+  1 10.0.12.1 1 msec 0 msec 4 msec
+  2 15.0.0.5 [AS 57] 4 msec 4 msec 4 msec
+  3 57.0.0.7 [AS 57] 4 msec 5 msec 5 msec
+  4 79.0.0.9 [AS 57] 4 msec *  1 msec
+
+r2#sh ip bgp
+BGP table version is 29, local router ID is 10.2.2.2
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *>i 15.0.0.0/24      10.1.1.1                 0    200      0 57 i
+ *>  33.0.0.0/24      0.0.0.0                  0         32768 i
+ * i                  10.1.1.1                 0    100      0 i
+ *>i 57.0.0.0/24      10.1.1.1                 0    200      0 57 i
+ *>  68.0.0.0/24      26.0.0.6                 0    250      0 68 i
+ *>i 79.0.0.0/24      10.1.1.1                 0    200      0 57 i
+ *>i 90.0.0.0/24      10.1.1.1                 0    200      0 57 90 i
+ *>i 90.0.0.9/32      10.1.1.1                 0    200      0 57 90 ?
+ *>i 91.0.0.0/24      10.1.1.1                 0    200      0 57 90 ?
+ *>i 100.0.0.0/24     10.1.1.1                 0    200      0 57 90 100 i

@@ -1,0 +1,89 @@
+R3#ping 180.1.2.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 180.1.2.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/5/20 ms
+
+R3#ping 180.1.5.5
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 180.1.5.5, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+
+R2#ping 180.1.5.5
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 180.1.5.5, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+
+R5#ping 180.1.2.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 180.1.2.2, timeout is 2 seconds:
+.!!!!
+Success rate is 80 percent (4/5), round-trip min/avg/max = 1/1/2 ms
+
+R2#sh ip route 
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 0.0.0.0 to network 0.0.0.0
+
+S*    0.0.0.0/0 is directly connected, Ethernet0/1.235
+      180.1.0.0/32 is subnetted, 1 subnets
+C        180.1.2.2 is directly connected, Loopback0
+      188.1.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        188.1.235.0/24 is directly connected, Ethernet0/1.235
+L        188.1.235.2/32 is directly connected, Ethernet0/1.235
+
+R5#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 188.1.235.3 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 188.1.235.3
+      180.1.0.0/32 is subnetted, 1 subnets
+C        180.1.5.5 is directly connected, Loopback0
+      188.1.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        188.1.235.0/24 is directly connected, Ethernet0/1.235
+L        188.1.235.5/32 is directly connected, Ethernet0/1.235
+
+R3#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      180.1.0.0/32 is subnetted, 3 subnets
+S        180.1.2.2 is directly connected, Ethernet0/1.235
+C        180.1.3.3 is directly connected, Loopback0
+S        180.1.5.5 [1/0] via 188.1.235.5
+      188.1.0.0/16 is variably subnetted, 4 subnets, 2 masks
+C        188.1.34.0/24 is directly connected, Ethernet0/1.34
+L        188.1.34.3/32 is directly connected, Ethernet0/1.34
+C        188.1.235.0/24 is directly connected, Ethernet0/1.235
+L        188.1.235.3/32 is directly connected, Ethernet0/1.235
+
+
+

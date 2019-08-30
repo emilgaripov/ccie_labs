@@ -1,0 +1,72 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+no ip domain lookup
+!
+redundancy
+!
+!
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ ip address 192.168.10.11 255.255.255.0
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************
+********** LAB 6 TASK 1 **********
+***********************************
+***********************************
+^C
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ privilege level 15
+ exec-timeout 0 0
+ logging synchronous
+ stopbits 1
+line aux 0
+line vty 0
+ login
+ transport input none
+line vty 1
+ login
+ length 0
+ transport input none
+line vty 2 4
+ login
+ transport input none
+!
+!
+end

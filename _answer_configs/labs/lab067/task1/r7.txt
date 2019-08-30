@@ -1,0 +1,184 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R7
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+key chain CLASSIC
+ key 1
+  key-string CLASSIC
+key chain OSPF_TUNNEL
+ key 1
+  key-string SHA256
+  cryptographic-algorithm hmac-sha-256
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+crypto isakmp policy 10
+ encr 3des
+ hash md5
+ authentication pre-share
+ group 5
+crypto isakmp key GRE address 180.1.3.3      
+!
+!
+crypto ipsec transform-set ESP_AES_SHA esp-aes esp-sha-hmac 
+ mode tunnel
+!
+!
+!
+crypto map GRE_IPSEC local-address Loopback0
+crypto map GRE_IPSEC 10 ipsec-isakmp 
+ set peer 180.1.3.3
+ set transform-set ESP_AES_SHA 
+ match address GRE
+!
+!
+!
+!
+!
+interface Loopback0
+ no shutdown
+ ip address 180.1.7.7 255.255.255.255
+!
+interface Tunnel0
+ no shutdown
+ ip address 144.1.0.7 255.255.255.0
+ ip ospf authentication key-chain OSPF_TUNNEL
+ ip ospf 100 area 0
+ tunnel source Loopback0
+ tunnel destination 180.1.3.3
+!
+interface Ethernet0/0
+ no shutdown
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no shutdown
+ no ip address
+!
+interface Ethernet0/1.7
+ no shutdown
+ encapsulation dot1Q 7
+ ip address 188.1.7.7 255.255.255.0
+!
+interface Ethernet0/1.67
+ no shutdown
+ encapsulation dot1Q 67
+ ip address 188.1.67.7 255.255.255.0
+ ip authentication mode eigrp 100 md5
+ ip authentication key-chain eigrp 100 CLASSIC
+ crypto map GRE_IPSEC
+!
+interface Ethernet0/1.78
+ no shutdown
+ encapsulation dot1Q 78
+ ip address 188.1.78.7 255.255.255.0
+ ip ospf authentication null
+ ip ospf 100 area 107
+!
+interface Ethernet0/2
+ no shutdown
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no shutdown
+ no ip address
+ shutdown
+!
+!
+router eigrp 100
+ network 180.1.0.0
+ network 188.1.0.0
+!
+router ospf 100
+ area 0 authentication message-digest
+ area 107 virtual-link 180.1.10.10 message-digest-key 1 md5 VIRTUAL
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ip access-list extended GRE
+ permit gre any any
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd C
+***********************************
+********** LAB 67 TASK 1 **********
+***********************************
+***********************************
+
+!
+line con 0
+ privilege level 15
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet
+!
+!
+end

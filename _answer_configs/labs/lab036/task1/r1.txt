@@ -1,0 +1,207 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+enable secret 5 $1$sfDo$Hk7uTt4OQ6IKD6g1K3sZZ0
+!
+aaa new-model
+!
+!
+aaa authentication login default group tacacs+ group radius local
+aaa authorization exec default group tacacs+ group radius local 
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!         
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+username cableguy privilege 15 view L1 secret 5 $1$RMs3$/paZR.bfVRmRFEr30vM9K/
+username miniadmin privilege 15 view Sup1 secret 5 $1$Awe5$.Zt4eI7cTI1xkJlfIhcpI/
+username superadmin privilege 15 view Superadmin secret 5 $1$kE4s$AlO/M.aPjNydSthblaG/m1
+!
+redundancy
+!         
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.1.1 255.255.255.255
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Serial1/0
+ ip address 188.1.12.1 255.255.255.128
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/1
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/2
+ no ip address
+ shutdown 
+ serial restart-delay 0
+!
+interface Serial1/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+tacacs server R3
+ address ipv4 188.1.23.3
+ key LinkmeUp_Tacacs
+!
+radius-server host 188.1.23.3
+!
+radius server R3
+ address ipv4 188.1.23.3 auth-port 1414 acct-port 1415
+ key LinkmeUp
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^CCC
+
+
+
+***********************************
+
+
+
+********** LAB 36 TASK 1 **********
+
+
+          
+***********************************
+
+
+
+***********************************
+
+
+
+^C
+parser view L1
+ secret 5 $1$iATy$LhWa3XpparbSYxEdfQKEj1
+ commands interface include shutdown
+ commands configure include interface
+ commands exec include configure terminal
+ commands exec include configure
+ commands exec include show ip interface brief
+ commands exec include show ip interface
+ commands exec include show ip
+ commands exec exclude show running-config
+ commands exec include show
+ commands configure include interface Ethernet0/1
+ commands configure include interface Serial1/0
+!         
+parser view Sup1
+ secret 5 $1$5bip$2QJFHuSKijRYhtOajkJs/0
+ commands configure exclude router
+ commands exec include all configure terminal
+ commands exec include configure
+ commands exec include show running-config
+ commands exec include show
+!
+parser view Superadmin superview
+ secret 5 $1$2Z/1$FnZdWK/d/tNAceURuizTD/
+ view L1
+ view Sup1
+!
+!
+line con 0
+ privilege level 15
+ logging synchronous
+line aux 0
+line vty 0 4
+ transport input telnet
+!
+event manager applet Rolebased
+ event none sync yes
+ action 1.0 cli command "enable"
+ action 2.0 cli command "conf t"
+ action 3.0 cli command "enable secret Rolebased"
+!
+end

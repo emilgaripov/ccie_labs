@@ -1,0 +1,213 @@
+!
+version 15.4
+service tcp-keepalives-in
+service tcp-keepalives-out
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+enable secret 5 $1$AlhY$MfzNuRgsPC8Wx4T5gpPAu.
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!         
+!
+!
+!
+!
+!
+!
+!
+username TempAccess password 0 TemP
+username TempAccess autocommand access-enable timeout 1
+username Teleworker password 0 TeleworK
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+no ip ftp passive
+ip ftp source-interface Loopback0
+! 
+!
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.2.2 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::2:2/128
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no ip address
+!
+interface Ethernet0/1.12
+ encapsulation dot1Q 12
+ ip address 188.1.12.2 255.255.255.0
+ ipv6 address 2001:CC1E:1:12::2/64
+!         
+interface Ethernet0/1.23
+ encapsulation dot1Q 23
+ ip address 188.1.23.2 255.255.255.0
+ ip access-group 101 in
+ ipv6 address 2001:CC1E:1:23::2/64
+!
+interface Ethernet0/1.144
+ encapsulation dot1Q 144
+ ip address 144.1.0.2 255.255.255.0
+ shutdown
+ ipv6 address 2001:C15C:0:1::2/64
+!
+interface Ethernet0/1.235
+ encapsulation dot1Q 235
+ ip address 188.1.235.2 255.255.255.0
+ ip access-group 101 in
+ ipv6 address 2001:CC1E:1:235::2/64
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Serial1/0
+ no ip address
+ encapsulation ppp
+ serial restart-delay 0
+!
+interface Serial1/1
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+!         
+!
+router eigrp NAMEDEIGRP
+ !
+ address-family ipv4 unicast autonomous-system 200
+  !
+  topology base
+   metric maximum-hops 200
+  exit-af-topology
+  network 180.1.0.0
+  network 188.1.0.0
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+access-list 101 permit eigrp any any fragments
+access-list 101 permit eigrp any any
+access-list 101 permit icmp any any
+access-list 101 permit tcp 188.1.34.0 0.0.0.255 host 188.1.23.2 eq telnet
+access-list 101 dynamic Temp timeout 60 permit ip 188.1.34.0 0.0.0.255 any
+access-list 101 permit tcp host 180.1.5.5 host 188.1.23.2 eq telnet time-range Teleworker
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^CCC
+
+
+
+***********************************
+
+
+
+***********************************
+          
+
+
+********** LAB 54 TASK 1 **********
+
+
+
+***********************************
+
+
+
+***********************************
+
+
+
+^C
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ login local
+ transport preferred none
+ transport input telnet
+!
+time-range Teleworker
+ periodic daily 8:00 to 18:00
+!
+!
+end

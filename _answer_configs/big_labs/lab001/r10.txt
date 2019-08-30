@@ -1,0 +1,398 @@
+
+!
+! Last configuration change at 12:43:15 CET Sun May 1 2016
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R10
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.10.10 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::10:10/128
+!
+interface Multilink1
+ no ip address
+ shutdown
+ ppp multilink
+ ppp multilink group 1
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ ip address 10.0.0.10 255.255.255.0
+!
+interface Ethernet0/1.10
+ encapsulation dot1Q 10
+ ip address 188.1.10.10 255.255.255.0
+ ipv6 address 2001:CC1E:1:10::10/64
+!
+interface Ethernet0/1.109
+ encapsulation dot1Q 109
+ ip address 188.1.109.10 255.255.255.0
+ shutdown
+ ipv6 address 2001:CC1E:1:109::10/64
+!
+interface Ethernet0/1.200
+ encapsulation dot1Q 200
+ ip address 188.1.200.10 255.255.255.0
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Serial1/0
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+ serial restart-delay 0
+!
+interface Serial1/1
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+ serial restart-delay 0
+!
+interface Serial1/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 188.1.200.6
+!
+ip access-list extended CCIE-IS-EASY
+ permit ip host 192.168.116.5 any
+ permit ip host 10.31.172.10 any
+ permit ip any host 172.17.20.36
+ permit ip any host 172.17.20.37
+ permit ip any host 172.17.20.38
+ permit ip any host 172.17.20.138
+ permit ip any host 10.169.0.1
+ permit ip any host 10.169.0.2
+ permit ip any host 10.169.0.3
+ permit ip any host 10.169.0.4
+ permit ip any host 10.169.0.5
+ permit ip any host 10.169.0.6
+ permit ip any host 10.169.0.7
+ permit ip any host 10.149.250.38
+ permit ip any host 10.149.250.41
+ permit ip any host 172.17.20.39
+ permit ip any host 10.149.250.43
+ permit ip any host 10.205.10.17
+ permit ip any host 196.26.56.88
+ permit ip any host 196.123.23.10
+ permit ip any host 196.123.23.13
+ permit ip any host 10.149.250.48
+ permit ip any host 10.31.172.6
+ permit tcp any any eq telnet
+ permit ip any host 10.221.201.151
+ permit ip any host 10.221.201.92
+ permit ip any host 10.149.250.45
+ permit ip any host 10.149.10.143
+ permit ip any host 196.26.56.110
+ permit ip any host 10.149.10.154
+ permit ip host 10.31.172.109 any
+ permit ip any host 10.221.201.59
+ permit ip any host 10.221.201.58
+ permit ip any host 192.168.115.5
+ permit ip any host 192.168.115.4
+ permit ip any host 192.168.115.3
+ permit ip any host 192.168.115.2
+ permit ip any host 192.168.116.39
+ permit ip any host 196.26.56.30
+ permit ip any host 196.26.56.31
+ permit ip any host 10.31.172.105
+ permit ip host 196.26.56.7 any
+ permit ip host 196.26.56.14 any
+ permit ip host 196.26.56.19 any
+ permit ip host 196.26.56.29 any
+ permit ip host 196.26.56.32 any
+ permit ip host 196.26.56.33 any
+ permit ip host 196.26.56.34 any
+ permit ip host 196.26.56.42 any
+ permit ip host 196.26.56.43 any
+ permit ip host 196.26.56.44 any
+ permit ip host 196.26.56.88 any
+ permit ip host 196.26.56.89 any
+ permit ip any host 10.149.250.36
+ permit ip any host 10.149.250.40
+ permit ip any host 10.205.10.1
+ permit ip any host 10.205.10.3
+ permit ip any host 10.205.10.15
+ permit ip any host 192.168.116.72
+ip access-list extended LABS-ARE-TOO-EASY
+ permit ip any host 196.123.23.10
+ permit ip any host 172.17.20.7
+ permit ip any host 172.17.20.36
+ permit ip any host 172.17.20.37
+ permit ip any host 172.17.20.38
+ permit ip any host 10.149.250.38
+ permit ip any host 10.149.250.41
+ permit ip any host 172.17.20.39
+ permit ip any host 172.17.20.61
+ permit ip any host 10.149.250.48
+ permit ip any host 192.168.120.84
+ permit ip any host 196.26.56.30
+ permit ip any host 196.26.56.31
+ permit ip any any dscp af21
+ permit ip any any dscp af23
+ permit ip any host 10.149.250.43
+ permit ip any host 10.149.250.44
+ permit ip any host 10.149.250.61
+ permit ip any host 10.169.0.2
+ permit ip any host 10.169.0.3
+ permit ip any host 10.169.0.4
+ permit ip any host 10.169.0.5
+ permit ip any host 10.169.0.10
+ permit ip host 196.26.56.15 any
+ permit ip host 196.26.56.16 any
+ permit ip host 196.26.56.28 any
+ permit ip host 196.26.56.30 any
+ permit ip host 196.26.56.31 any
+ permit ip any host 196.123.23.13
+ permit ip 10.240.25.0 0.0.0.255 any
+ permit ip any host 10.169.8.5
+ permit ip any host 10.169.8.6
+ permit ip any host 10.169.8.9
+ permit ip any host 10.169.8.12
+ permit ip host 196.26.56.66 any
+ permit ip host 196.26.56.67 any
+ permit ip host 10.149.20.42 any
+ permit ip any host 10.149.20.42
+ permit tcp any host 196.14.245.178 eq www
+ip access-list extended LINKMEUP
+ deny   ip 196.2.165.24 0.0.0.7 any
+ deny   ip any 196.2.165.24 0.0.0.7
+ permit icmp any any
+ permit tcp any any eq 22
+ permit tcp any eq 22 any
+ permit tcp any any eq telnet
+ permit tcp any eq telnet any
+ permit tcp any any eq tacacs
+ permit tcp any eq tacacs any
+ permit tcp any any eq domain
+ permit udp any any eq domain
+ permit tcp any eq domain any
+ permit udp any eq domain any
+ permit udp any any eq tftp
+ permit udp any eq tftp any
+ permit tcp any any eq 88
+ permit tcp any eq 88 any
+ permit udp any any eq ntp
+ permit tcp any any eq bgp
+ permit tcp any eq bgp any
+ permit tcp any any eq 389
+ permit tcp any eq 389 any
+ permit udp any any eq isakmp
+ permit udp any eq isakmp any
+ permit udp any any eq syslog
+ permit udp any eq syslog any
+ permit tcp any any eq 636
+ permit tcp any eq 636 any
+ permit udp any any eq 749
+ permit udp any eq 749 any
+ permit tcp any any eq 1194
+ permit tcp any eq 1194 any
+ permit tcp any any eq 1292
+ permit tcp any eq 1292 any
+ permit tcp any any eq 1723
+ permit tcp any eq 1723 any
+ permit udp any any eq 1812
+ permit udp any eq 1812 any
+ permit udp any any eq 1813
+ permit udp any eq 1813 any
+ permit tcp any any eq 3389
+ permit tcp any eq 3389 any
+ permit tcp any any eq 5900
+ permit tcp any eq 5900 any
+ permit gre any any
+ permit udp any any eq 1645
+ permit udp any eq 1645 any
+ permit udp any any eq 1646
+ permit udp any eq 1646 any
+ permit tcp any any eq 8080
+ permit tcp any eq 8080 any
+ permit tcp any any eq 8443
+ permit tcp any eq 8443 any
+ip access-list extended MOAR
+ permit tcp any any eq www
+ permit tcp any eq www any
+ permit tcp any any eq 443
+ permit tcp any eq 443 any
+ permit tcp any any eq domain
+ permit tcp any eq domain any
+ permit udp any any eq domain
+ permit udp any eq domain any
+ permit tcp any any eq 8080
+ permit tcp any eq 8080 any
+ permit udp any any eq 8080
+ permit udp any eq 8080 any
+ permit ip host 10.64.248.35 any
+ permit ip host 10.0.1.241 any
+ permit ip any 10.3.51.0 0.0.0.255
+ permit ip any 172.16.1.0 0.0.0.255
+ permit ip any 172.16.9.0 0.0.0.255
+ permit ip host 10.0.1.251 any
+ permit ip any host 10.3.30.2
+ permit ip any host 196.37.12.146
+ permit ip any host 196.37.12.148
+ permit ip any host 196.38.169.78
+ip access-list extended YOU-NEED-MOAR
+ permit tcp any any eq telnet
+ permit tcp any eq telnet any
+ permit tcp any any eq tacacs
+ permit tcp any eq tacacs any
+ permit tcp any any eq 1433
+ permit tcp any eq 1443 any
+ permit tcp any any eq 1434
+ permit tcp any eq 1434 any
+ permit ip 209.212.120.80 0.0.0.15 any
+ permit ip 10.0.5.0 0.0.0.255 any
+ permit ip 10.0.3.0 0.0.0.255 any
+ permit ip host 10.0.1.101 any
+ permit ip 196.45.168.0 0.0.0.255 any
+ permit ip 196.45.169.0 0.0.0.255 any
+ permit ip host 192.168.160.11 any
+ permit ip host 192.168.160.9 any
+ permit ip host 192.168.160.10 any
+ permit ip any host 196.37.130.194
+ permit ip any host 196.14.105.30
+ permit ip any host 196.14.105.38
+ permit ip any host 196.26.159.18
+ permit ip 196.45.175.0 0.0.0.255 any
+ permit tcp any eq 3389 any
+ permit tcp any any eq 3389
+ permit ip host 10.0.1.236 host 10.64.248.203
+ permit tcp host 10.0.1.226 any eq 143
+ permit tcp host 10.128.227.169 host 10.64.248.252 eq ftp
+ permit tcp 10.46.193.0 0.0.0.63 host 10.64.248.201 eq ftp
+ permit tcp 192.168.64.0 0.0.0.255 host 10.64.248.201 eq ftp
+ permit ip host 10.0.1.226 host 10.46.148.203
+ permit ip host 10.46.148.203 host 10.0.1.22
+ip access-list extended asap
+ deny   ip any host 188.165.210.206
+ deny   ip any host 184.25.56.131
+ deny   ip any host 174.127.106.26
+ deny   ip any host 74.125.136.127
+ deny   ip any host 50.87.144.171
+ deny   ip any host 50.63.122.1
+ deny   ip any host 192.99.34.20
+ deny   ip any host 194.44.72.42
+ deny   ip any host 198.6.100.21
+ deny   ip any host 202.153.35.133
+ deny   ip any host 23.253.254.67
+ deny   ip any host 60.173.11.240
+ deny   ip any host 61.132.227.5
+ deny   ip any host 61.160.213.108
+ deny   ip any host 62.149.128.151
+ deny   ip any host 62.149.128.154
+ deny   ip any host 62.149.131.67
+ deny   ip any host 78.109.168.80
+ deny   ip any host 79.111.156.26
+ deny   ip any host 91.207.7.94
+ deny   ip any host 94.23.12.138
+ deny   ip any host 94.231.182.254
+ deny   ip any host 94.242.61.66
+ deny   ip any host 95.25.71.144
+ permit ip any any
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+!
+end

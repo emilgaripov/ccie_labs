@@ -1,0 +1,217 @@
+!
+! Last configuration change at 11:34:58 CET Tue May 31 2016
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+!
+class-map match-all VOIP
+ match access-group name VOIP
+ match vlan  12
+ match packet length min 40 max 60
+class-map match-all NONDEFAULT
+ match not ip precedence 0 
+ match vlan  12
+class-map match-all ICMP
+ match access-group name ICMP
+ match packet length min 1401
+ match vlan  12
+class-map match-all HTTP
+ match access-group name HTTP
+ match vlan  12
+class-map match-all IPPREC5
+ match ip precedence 5 
+ match vlan  23
+class-map match-all IPPREC1
+ match ip precedence 1 
+ match vlan  23
+class-map match-all IPPREC3
+ match ip precedence 3 
+ match vlan  23
+class-map match-all IPPREC2
+ match ip precedence 2 
+ match vlan  23
+!
+policy-map VLAN12
+ class VOIP
+  set ip precedence 5
+ class HTTP
+  set ip precedence 3
+ class ICMP
+  set ip precedence 2
+ class NONDEFAULT
+  set ip precedence 1
+policy-map OUT
+ class IPPREC5
+  priority percent 20
+ class IPPREC3
+  bandwidth percent 15 
+ class IPPREC2
+  bandwidth percent 5 
+ class IPPREC1
+  bandwidth percent 30 
+ class class-default
+  random-detect
+  random-detect precedence 5 101 102 10
+  random-detect precedence 6 101 102 10
+  queue-limit 150 packets
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.2.2 255.255.255.255
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no ip address
+ service-policy input VLAN12
+ service-policy output OUT
+!
+interface Ethernet0/1.12
+ encapsulation dot1Q 12
+ ip address 188.1.12.2 255.255.255.0
+!
+interface Ethernet0/1.23
+ encapsulation dot1Q 23
+ ip address 188.1.23.2 255.255.255.0
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Serial1/0
+ no ip address
+ encapsulation ppp
+ serial restart-delay 0
+!
+interface Serial1/1
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ip access-list extended HTTP
+ permit tcp any any eq www
+ip access-list extended ICMP
+ permit icmp any any
+ip access-list extended VOIP
+ permit udp any any range 16384 18000
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^C
+***********************************
+***********************************
+********** LAB 22 TASK 2 **********
+***********************************
+***********************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ no login
+ transport preferred none
+ transport input telnet
+!
+!
+end

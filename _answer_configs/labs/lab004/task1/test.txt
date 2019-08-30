@@ -1,0 +1,4 @@
+R1#sh policy-map int s1/0 | i Service-policy output:|queue limit|Fair-queue: per-flow queue limit
+  Service-policy output: WFQ
+      queue limit 100 packets
+      Fair-queue: per-flow queue limit 25 packets

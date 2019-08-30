@@ -1,0 +1,211 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+crypto isakmp policy 10
+ encr 3des
+ hash sha256
+ authentication pre-share
+ group 5
+crypto isakmp key DMVPN3 address 0.0.0.0        
+!
+!
+crypto ipsec transform-set ESP-3DES-SHA esp-3des esp-sha-hmac 
+ mode tunnel
+!
+crypto ipsec profile DMVPN3
+ set transform-set ESP-3DES-SHA 
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.2.2 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::2:2/128
+!
+interface Tunnel0
+ ip address 188.1.100.2 255.255.255.0
+ no ip redirects
+ ip nhrp authentication DMVPN3
+ ip nhrp map 188.1.100.7 144.1.0.7
+ ip nhrp map multicast 144.1.0.7
+ ip nhrp network-id 100
+ ip nhrp nhs 188.1.100.7
+ tunnel source Ethernet0/1.144
+ tunnel mode gre multipoint
+ tunnel key 10000
+ tunnel protection ipsec profile DMVPN3
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no ip address
+!
+interface Ethernet0/1.12
+ encapsulation dot1Q 12
+ ip address 188.1.12.2 255.255.255.0
+ ipv6 address 2001:CC1E:1:12::2/64
+!
+interface Ethernet0/1.23
+ encapsulation dot1Q 23
+ ip address 188.1.23.2 255.255.255.0
+ ipv6 address 2001:CC1E:1:23::2/64
+!
+interface Ethernet0/1.144
+ encapsulation dot1Q 144
+ ip address 144.1.0.2 255.255.255.0
+ ipv6 address 2001:C15C:0:1::2/64
+!
+interface Ethernet0/1.235
+ encapsulation dot1Q 235
+ ip address 188.1.235.2 255.255.255.0
+ ipv6 address 2001:CC1E:1:235::2/64
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Serial1/0
+ no ip address
+ encapsulation ppp
+ shutdown
+ serial restart-delay 0
+!         
+interface Serial1/1
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+!
+router eigrp DMVPN_Phase2
+ !
+ address-family ipv4 unicast autonomous-system 73
+  !
+  topology base
+   redistribute ospf 100 metric 100000 1 255 1 1500
+  exit-af-topology
+  network 180.1.0.0
+  network 188.1.100.0 0.0.0.255
+ exit-address-family
+!
+router ospf 100
+ redistribute eigrp 73 metric 1 subnets
+ network 188.1.12.0 0.0.0.255 area 12
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!         
+!
+!
+banner motd ^CC
+
+***********************************
+
+***********************************
+
+********** LAB 82 TASK 3 **********
+
+***********************************
+
+***********************************
+
+^C
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ no login
+ transport preferred none
+ transport input telnet
+!
+!
+end

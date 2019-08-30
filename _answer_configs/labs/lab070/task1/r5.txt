@@ -1,0 +1,178 @@
+
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R5
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+crypto isakmp policy 10
+ encr 3des
+ hash sha256
+ authentication pre-share
+ group 5
+ lifetime 4800
+crypto isakmp key GETVPN address 0.0.0.0        
+!
+!
+crypto ipsec transform-set ESP_3DES_SHA esp-3des esp-sha-hmac 
+ mode tunnel
+!
+crypto ipsec profile GETVPN_PROFILE
+ set transform-set ESP_3DES_SHA 
+!
+!
+crypto gdoi group GETVPN
+ identity number 100
+ server local
+  rekey authentication mypubkey rsa GETVPN_RSA
+  rekey transport unicast
+  sa ipsec 1
+   profile GETVPN_PROFILE
+   match address ipv4 GETVPN
+   replay counter window-size 64
+   no tag
+  address ipv4 180.1.5.5
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ no shutdown
+ ip address 180.1.5.5 255.255.255.255
+ ip ospf 100 area 0
+!
+interface Ethernet0/0
+ no shutdown
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no shutdown
+ no ip address
+!
+interface Ethernet0/1.5
+ no shutdown
+ encapsulation dot1Q 5
+ ip address 188.1.5.5 255.255.255.0
+ ip ospf 100 area 0
+!
+interface Ethernet0/1.235
+ no shutdown
+ encapsulation dot1Q 235
+ ip address 188.1.235.5 255.255.255.0
+ ip ospf 100 area 15
+!
+interface Ethernet0/1.456
+ no shutdown
+ encapsulation dot1Q 45
+ ip address 188.1.45.5 255.255.255.0
+ ip ospf 100 area 0
+!
+interface Ethernet0/2
+ no shutdown
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no shutdown
+ no ip address
+ shutdown
+!
+router ospf 100
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ip access-list extended GETVPN
+ permit ip 188.1.12.0 0.0.0.255 188.1.89.0 0.0.0.255
+ permit ip 188.1.12.0 0.0.0.255 188.1.109.0 0.0.0.255
+ permit ip 188.1.12.0 0.0.0.255 188.1.9.0 0.0.0.255
+ permit ip 188.1.12.0 0.0.0.255 188.1.10.0 0.0.0.255
+ permit ip 188.1.89.0 0.0.0.255 188.1.12.0 0.0.0.255
+ permit ip 188.1.109.0 0.0.0.255 188.1.12.0 0.0.0.255
+ permit ip 188.1.9.0 0.0.0.255 188.1.12.0 0.0.0.255
+ permit ip 188.1.10.0 0.0.0.255 188.1.12.0 0.0.0.255
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd CC
+***********************************
+********** LAB 70 TASK 1 **********
+***********************************
+***********************************
+
+!
+line con 0
+ privilege level 15
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input telnet
+!
+!
+end

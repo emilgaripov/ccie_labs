@@ -1,0 +1,121 @@
+SW1#sh vtp st
+VTP Version capable             : 1 to 3
+VTP version running             : 3
+VTP Domain Name                 : CCIEinaYEAR
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : aabb.cc80.0b00
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Primary Server
+Number of existing VLANs          : 5
+Number of existing extended VLANs : 0
+Maximum VLANs supported locally   : 4096
+Configuration Revision            : 1
+Primary ID                        : aabb.cc80.0b00
+Primary Description               : SW1
+MD5 digest                        : 0x1B 0x27 0x53 0xA2 0xCF 0x62 0x84 0x3A 
+                                    0x18 0xAF 0x13 0x4E 0xE5 0xB6 0x4A 0x62 
+
+
+Feature MST:
+--------------
+VTP Operating Mode                : Transparent
+          
+
+Feature UNKNOWN:
+--------------
+VTP Operating Mode                : Transparent
+
+
+
+SW2#sh vtp stat
+VTP Version capable             : 1 to 3
+VTP version running             : 3
+VTP Domain Name                 : CCIEinaYEAR
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : aabb.cc80.0c00
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Number of existing VLANs          : 5
+Number of existing extended VLANs : 0
+Maximum VLANs supported locally   : 4096
+Configuration Revision            : 1
+Primary ID                        : aabb.cc80.0b00
+Primary Description               : SW1
+MD5 digest                        : 0x1B 0x27 0x53 0xA2 0xCF 0x62 0x84 0x3A 
+                                    0x18 0xAF 0x13 0x4E 0xE5 0xB6 0x4A 0x62 
+
+
+Feature MST:
+--------------
+VTP Operating Mode                : Transparent
+          
+
+Feature UNKNOWN:
+--------------
+VTP Operating Mode                : Transparent
+
+SW3#sh vtp sta
+VTP Version capable             : 1 to 3
+VTP version running             : 3
+VTP Domain Name                 : CCIEinaYEAR
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : aabb.cc80.0d00
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Number of existing VLANs          : 5
+Number of existing extended VLANs : 0
+Maximum VLANs supported locally   : 4096
+Configuration Revision            : 1
+Primary ID                        : aabb.cc80.0b00
+Primary Description               : SW1
+MD5 digest                        : 0x1B 0x27 0x53 0xA2 0xCF 0x62 0x84 0x3A 
+                                    0x18 0xAF 0x13 0x4E 0xE5 0xB6 0x4A 0x62 
+
+
+Feature MST:
+--------------
+VTP Operating Mode                : Transparent
+          
+
+Feature UNKNOWN:
+--------------
+VTP Operating Mode                : Transparent
+
+SW4#sh vtp sta
+VTP Version capable             : 1 to 3
+VTP version running             : 3
+VTP Domain Name                 : CCIEinaYEAR
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : aabb.cc80.0e00
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Number of existing VLANs          : 5
+Number of existing extended VLANs : 0
+Maximum VLANs supported locally   : 4096
+Configuration Revision            : 1
+Primary ID                        : aabb.cc80.0b00
+Primary Description               : SW1
+MD5 digest                        : 0x1B 0x27 0x53 0xA2 0xCF 0x62 0x84 0x3A 
+                                    0x18 0xAF 0x13 0x4E 0xE5 0xB6 0x4A 0x62 
+
+
+Feature MST:
+--------------
+VTP Operating Mode                : Transparent
+          
+
+Feature UNKNOWN:
+--------------
+VTP Operating Mode                : Transparent

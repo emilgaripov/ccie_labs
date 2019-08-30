@@ -1,0 +1,194 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R3
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.3.3 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::/64 eui-64
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no ip address
+!
+interface Ethernet0/1.23
+ encapsulation dot1Q 23
+ ip address 188.1.23.3 255.255.255.0
+ ipv6 address FE80::A8BB:CCFF:FE00:310 link-local
+ ipv6 address ::188:1:23:3/128
+ ipv6 address 2001:CC1E:1:23::3/64
+!
+interface Ethernet0/1.34
+ encapsulation dot1Q 34
+ ip address 188.1.34.3 255.255.255.0
+ ipv6 address ::188:1:34:3/128
+ ipv6 address 2001:CC1E:1:34::3/64
+!         
+interface Ethernet0/1.144
+ encapsulation dot1Q 144
+ ip address 144.1.0.3 255.255.255.0
+ shutdown
+ ipv6 address 2001:C15C:0:1::3/64
+!
+interface Ethernet0/1.235
+ encapsulation dot1Q 235
+ ip address 188.1.235.3 255.255.255.0
+ ipv6 address ::188:1:235:3/128
+ ipv6 address 2001:CC1E:1:235::3/64
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!         
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^CCCC
+
+
+
+
+
+
+
+          
+***********************************
+
+
+
+
+
+
+
+***********************************
+
+
+
+
+
+
+
+          
+
+********** LAB 101 TASK 1 **********
+
+
+
+          
+
+
+
+
+***********************************
+
+
+
+
+
+
+
+***********************************
+
+
+
+          
+
+
+
+^C
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ no login
+ transport preferred none
+ transport input telnet
+!
+!
+end

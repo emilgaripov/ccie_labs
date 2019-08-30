@@ -1,0 +1,166 @@
+==========r1.txt==========
+
+ interface Serial1/0
+  ip unnumbered Loopback0
++ encapsulation ppp
+  serial restart-delay 0
+
++ip route 180.1.3.3 255.255.255.255 188.1.12.2
+
+==========r2.txt==========
+
+ interface Serial1/0
+  ip unnumbered Loopback0
++ encapsulation ppp
+  serial restart-delay 0
+- shutdown
+
+ ip access-list extended STILL-ALIVE
++ permit tcp host 180.1.5.5 host 180.1.1.1 eq telnet
+  deny   tcp any any eq telnet
++ permit icmp 180.1.0.0 0.0.15.15 host 180.1.1.1
+  deny   icmp any host 180.1.1.1
+  permit ip any any
+
+==========r3.txt==========
+
++ip route 0.0.0.0 0.0.0.0 188.1.235.5 2
++ip route 0.0.0.0 0.0.0.0 Ethernet0/1.34 188.1.34.4
+
+==========r4.txt==========
+
+ interface Ethernet0/1.34
+  encapsulation dot1Q 34
+  ip address 188.1.34.4 255.255.255.0
+  no ip proxy-arp
+- shutdown
+
+ ip access-list extended NEVER-ENOUGH
++ permit tcp host 188.1.45.6 host 180.1.4.4 eq 22
+  deny   tcp any any eq 22
+  permit ip any any
+
+ line vty 0 4
+- no login
++ login local
++ transport input ssh
+
++ip domain name linkmeup.ru
+
++ip ssh time-out 60
++ip ssh version 2
+
++login block-for 30 attempts 2 within 60
+
+==========r5.txt==========
+
++ip route 180.1.1.1 255.255.255.255 188.1.235.2
++ip route 180.1.2.2 255.255.255.255 188.1.235.2
+
++ip telnet source-interface Loopback0
+
+==========r6.txt==========
+
+ interface Ethernet0/1.200
+  encapsulation dot1Q 200
+  ip address 188.1.200.6 255.255.255.0
+  ip access-group BRUSSELS in
++ no ip redirects
++ ip local-proxy-arp
+
+ interface Ethernet0/1.456
+- encapsulation dot1Q 654
++ encapsulation dot1Q 456
+  ip address 188.1.45.6 255.255.255.0
+
+ interface Virtual-Template1
+  ip unnumbered Loopback1
+- peer default ip address pool R7-P00L
++ peer default ip address pool R7-POOL
+  ppp authentication chap
+
+ ip access-list extended BRUSSELS
++ permit icmp host 180.1.9.9 180.1.0.0 0.0.15.15
++ permit icmp host 180.1.10.10 180.1.0.0 0.0.15.15
+  deny   ip 180.1.0.0 0.0.255.255 180.1.0.0 0.0.255.255
+  permit ip any any
+
++ip route 180.1.8.8 255.255.255.255 188.1.67.7
+
+-username R7 password 7 03277822234F
++username R7 password 7 1434312229
+
+==========r7.txt==========
+
+ interface Ethernet0/1.67
+  encapsulation dot1Q 67
+  ip address 188.1.67.7 255.255.255.0
++ pppoe enable
++ pppoe-client dial-pool-number 3
+
+ interface Ethernet0/1.78
+  encapsulation dot1Q 78
+  ip address 188.1.78.7 255.255.255.0
+- no ip proxy-arp
+
++interface Dialer1
++ ip address negotiated
++ encapsulation ppp
++ dialer pool 3
++ ppp chap password 0 CCIE
++ ppp ipcp route default
+==========r8.txt==========
+
+ line con 0
+  exec-timeout 0 0
+  privilege level 15
+  logging synchronous
++ transport preferred none
+
+ line vty 0 4
++ privilege level 15
++ no login
++ rotary 8
++ transport preferred none
++ transport input telnet
+==========r9.txt==========
+No differences
+==========r10.txt==========
+No differences
+==========sw1.txt==========
+
+ interface Ethernet0/1
+  switchport trunk encapsulation dot1q
+  switchport mode trunk
+- shutdown
+
+-vtp mode transparent
++vtp mode off
+
+==========sw2.txt==========
+
+ interface Ethernet0/0
+- switchport trunk encapsulation isl
++ switchport trunk encapsulation dot1q
+  switchport mode trunk
+
+-vtp mode transparent
++vtp mode off
+
+==========sw3.txt==========
+
+ interface Ethernet0/0
+- switchport trunk allowed vlan 1-33,35-4094
+  switchport trunk encapsulation dot1q
+  switchport mode trunk
+
+-vtp mode transparent
++vtp mode off
+
+==========sw4.txt==========
+
+-vtp mode transparent
++vtp mode off
+
+-vlan 2-10,12,23,34,78,89,109,144,200,235,456
++vlan 2-10,12,23,34,67,78,89,109,144,200,235,456

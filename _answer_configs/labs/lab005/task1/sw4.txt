@@ -1,0 +1,158 @@
+!
+! Last configuration change at 16:36:48 UTC Fri Apr 1 2016 by CCIEadmin
+!
+version 15.2
+no service pad
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+service compress-config
+!
+hostname SW4
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging discriminator EXCESS severity drops 6 msg-body drops EXCESSCOLL
+logging buffered 50000
+logging console discriminator EXCESS
+!
+username CCIEadmin secret 5 $1$NR5s$urmEhhJRdT8lAL/mtjAts/
+no aaa new-model
+!
+ip ssh authentication-retries 2
+!
+!
+!
+!
+vtp mode transparent
+!
+!
+!
+no ip domain-lookup
+ip domain-name ccie.linkmeup.ru
+ip cef
+ipv6 multicast rpf use-bgp
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 40
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ shutdown
+!
+interface Ethernet0/1
+ shutdown
+!
+interface Ethernet0/2
+ shutdown
+!
+interface Ethernet0/3
+ shutdown
+!
+interface Ethernet1/0
+ shutdown
+!
+interface Ethernet1/1
+ shutdown
+!
+interface Ethernet1/2
+ shutdown
+!
+interface Ethernet1/3
+ shutdown
+!
+interface Ethernet2/0
+ shutdown
+!
+interface Ethernet2/1
+ shutdown
+!
+interface Ethernet2/2
+ shutdown
+!
+interface Ethernet2/3
+ shutdown
+!
+interface Ethernet3/0
+ shutdown
+!
+interface Ethernet3/1
+ shutdown
+!
+interface Ethernet3/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet3/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan40
+ ip address 188.1.40.1 255.255.255.0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh time-out 30
+ip ssh port 4040 rotary 4
+ip ssh source-interface Vlan40
+ip ssh logging events
+ip ssh version 2
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************
+********** LAB 5 TASK 1 **********
+***********************************
+***********************************
+^C
+!
+line con 0
+ privilege level 15
+ exec-timeout 0 0
+ password 7 096F6D203C0C19133229251874
+ logging synchronous
+ login
+line aux 0
+line vty 0 3
+ login
+ transport input ssh
+line vty 4
+ login local
+ rotary 4
+ transport input ssh
+!
+!
+end

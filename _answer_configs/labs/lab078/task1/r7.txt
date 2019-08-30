@@ -1,0 +1,211 @@
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R7
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip multicast-routing 
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+key chain EIGRP
+ key 1
+  key-string EIGRP69
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!         
+!
+!
+!
+!
+interface Loopback0
+ ip address 180.1.7.7 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::7:7/128
+!
+interface Tunnel0
+ ip address 144.1.0.7 255.255.255.0
+ tunnel source Loopback0
+ tunnel destination 180.1.3.3
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no ip address
+!
+interface Ethernet0/1.7
+ encapsulation dot1Q 7
+ ip address 188.1.7.7 255.255.255.0
+ ipv6 address 2001:CC1E:1:7::7/64
+!
+interface Ethernet0/1.67
+ encapsulation dot1Q 67
+ ip address 188.1.67.7 255.255.255.0
+ ip pim dense-mode
+ ipv6 address 2001:CC1E:1:67::7/64
+!
+interface Ethernet0/1.78
+ encapsulation dot1Q 78
+ ip address 188.1.78.7 255.255.255.0
+ ip pim dense-mode
+ ipv6 address 2001:CC1E:1:78::7/64
+!
+interface Ethernet0/1.144
+ encapsulation dot1Q 144
+ shutdown
+ ipv6 address 2001:C15C:0:1::7/64
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!         
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+!
+router eigrp NAMED
+ !
+ address-family ipv4 unicast autonomous-system 69
+  !
+  af-interface Ethernet0/1.67
+   authentication mode hmac-sha-256 EIGRP
+  exit-af-interface
+  !
+  af-interface Ethernet0/1.78
+   authentication mode hmac-sha-256 EIGRP
+  exit-af-interface
+  !
+  topology base
+   redistribute eigrp 73 route-map TO_EIGRP_69
+  exit-af-topology
+  network 180.1.7.7 0.0.0.0
+  network 188.1.67.0 0.0.0.255
+  network 188.1.78.0 0.0.0.255
+ exit-address-family
+!
+!
+router eigrp 73
+ network 144.1.0.0
+ redistribute eigrp 69 route-map TO_EIGRP_73
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+route-map TO_EIGRP_73 deny 10
+ match tag 73
+!
+route-map TO_EIGRP_73 permit 20
+ set tag 69
+!
+route-map TO_EIGRP_69 deny 10
+ match tag 73
+!         
+route-map TO_EIGRP_69 permit 20
+ set tag 73
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^CCC
+
+
+
+***********************************
+
+
+
+***********************************
+          
+
+
+********** LAB 78 TASK 1 **********
+
+
+
+***********************************
+
+
+
+***********************************
+
+
+
+^C
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ no login
+ transport preferred none
+ transport input telnet
+!
+!
+end

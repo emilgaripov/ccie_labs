@@ -1,0 +1,17 @@
+SW1#sh monitor session all
+Session 1
+---------
+Type                     : Local Session
+Source Ports             :
+    Both                 : 901 
+Destination Ports      : Et1/1
+    Encapsulation      : Native
+
+
+SW4#  sh monitor session all
+Session 1
+---------
+Type                     : Remote Source Session
+Source Ports             :
+    Both                 : Po24
+Dest RSPAN VLAN        : 901

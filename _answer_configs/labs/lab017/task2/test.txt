@@ -1,0 +1,123 @@
+
+#####################R1#######################
+R1#sh snmp user
+
+User name: CCIEadmin
+Engine ID: 800000090300AABBCC000100
+storage-type: nonvolatile        active access-list: 90
+Authentication Protocol: SHA
+Privacy Protocol: 3DES
+Group-name: CCIEinaYEAR
+
+
+R1# sh snmp group | begin CCIEinaYEAR
+groupname: CCIEinaYEAR                      security model:v3 auth
+contextname: <no context specified>         storage-type: nonvolatile
+readview : ALLINT                           writeview: ALLINT           
+notifyview: <no notifyview specified>
+row status: active
+
+
+#####################R2#######################
+
+R2#sh snmp user
+
+User name: CCIEadmin
+Engine ID: 800000090300AABBCC000100
+storage-type: nonvolatile        active access-list: 90
+Authentication Protocol: SHA
+Privacy Protocol: 3DES
+Group-name: CCIEinaYEAR
+
+
+R2# sh snmp group | begin CCIEinaYEAR
+groupname: CCIEinaYEAR                      security model:v3 auth
+contextname: <no context specified>         storage-type: nonvolatile
+readview : ALLINT                           writeview: ALLINT           
+notifyview: <no notifyview specified>
+row status: active
+
+
+#####################R3#######################
+
+R3#sh snmp user
+
+User name: CCIEadmin
+Engine ID: 800000090300AABBCC000100
+storage-type: nonvolatile        active access-list: 90
+Authentication Protocol: SHA
+Privacy Protocol: 3DES
+Group-name: CCIEinaYEAR
+
+
+R3# sh snmp group | begin CCIEinaYEAR
+groupname: CCIEinaYEAR                      security model:v3 auth
+contextname: <no context specified>         storage-type: nonvolatile
+readview : ALLINT                           writeview: ALLINT           
+notifyview: <no notifyview specified>
+row status: active
+
+
+#####################R4#######################
+
+
+R4#sh snmp user
+
+User name: CCIEadmin
+Engine ID: 800000090300AABBCC000100
+storage-type: nonvolatile        active access-list: 90
+Authentication Protocol: SHA
+Privacy Protocol: 3DES
+Group-name: CCIEinaYEAR
+
+
+R4# sh snmp group | begin CCIEinaYEAR
+groupname: CCIEinaYEAR                      security model:v3 auth
+contextname: <no context specified>         storage-type: nonvolatile
+readview : ALLINT                           writeview: ALLINT           
+notifyview: <no notifyview specified>
+row status: active
+
+
+
+#####################R5#######################
+
+R5#sh snmp user
+
+User name: CCIEadmin
+Engine ID: 800000090300AABBCC000100
+storage-type: nonvolatile        active access-list: 90
+Authentication Protocol: SHA
+Privacy Protocol: 3DES
+Group-name: CCIEinaYEAR
+
+
+R5# sh snmp group | begin CCIEinaYEAR
+groupname: CCIEinaYEAR                      security model:v3 auth
+contextname: <no context specified>         storage-type: nonvolatile
+readview : ALLINT                           writeview: ALLINT           
+notifyview: <no notifyview specified>
+row status: active
+
+
+#####################R6#######################
+
+
+R6#sh snmp user
+
+User name: CCIEadmin
+Engine ID: 800000090300AABBCC000100
+storage-type: nonvolatile        active access-list: 90
+Authentication Protocol: SHA
+Privacy Protocol: 3DES
+Group-name: CCIEinaYEAR
+
+
+R6# sh snmp group | begin CCIEinaYEAR
+groupname: CCIEinaYEAR                      security model:v3 auth
+contextname: <no context specified>         storage-type: nonvolatile
+readview : ALLINT                           writeview: ALLINT           
+notifyview: <no notifyview specified>
+row status: active
+
+

@@ -1,0 +1,239 @@
+
+!
+! Last configuration change at 10:48:55 CET Thu Dec 1 2016
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R7
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+vrf definition GREEN
+ !
+ address-family ipv4
+ exit-address-family
+!
+vrf definition RED
+ !
+ address-family ipv4
+ exit-address-family
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+key chain DMPVN_VRF_RED
+ key 1
+  key-string VRF_GREEN
+  cryptographic-algorithm hmac-sha-1
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+crypto isakmp policy 10
+ hash sha256
+ authentication pre-share
+ group 5
+crypto isakmp key DMVPN_VRF address 0.0.0.0        
+!
+!
+crypto ipsec transform-set ESP_3DES_SHA esp-3des esp-sha-hmac 
+ mode tunnel
+!
+crypto ipsec profile DMVPN_VRF
+ set transform-set ESP_3DES_SHA 
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ no shutdown
+ ip address 180.1.7.7 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::7:7/128
+!
+interface Tunnel0
+ no shutdown
+ vrf forwarding GREEN
+ ip address 188.1.100.71 255.255.255.0
+ no ip redirects
+ ip nhrp authentication VRFGREEN
+ ip nhrp map multicast dynamic
+ ip nhrp network-id 100
+ tunnel source Ethernet0/1.144
+ tunnel mode gre multipoint
+ tunnel key 10000
+ tunnel protection ipsec profile DMVPN_VRF shared
+!
+interface Tunnel1
+ no shutdown
+ vrf forwarding RED
+ ip address 188.1.100.72 255.255.255.0
+ no ip redirects
+ ip nhrp authentication VRFRED
+ ip nhrp map multicast dynamic
+ ip nhrp network-id 200
+ tunnel source Ethernet0/1.144
+ tunnel mode gre multipoint
+ tunnel key 20000
+ tunnel protection ipsec profile DMVPN_VRF shared
+!
+interface Ethernet0/0
+ no shutdown
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no shutdown
+ no ip address
+!
+interface Ethernet0/1.7
+ no shutdown
+ encapsulation dot1Q 7
+ ip address 188.1.7.7 255.255.255.0
+ ipv6 address 2001:CC1E:1:7::7/64
+!
+interface Ethernet0/1.67
+ no shutdown
+ encapsulation dot1Q 67
+ ip address 188.1.67.7 255.255.255.0
+ ipv6 address 2001:CC1E:1:67::7/64
+!
+interface Ethernet0/1.78
+ no shutdown
+ encapsulation dot1Q 78
+ ip address 188.1.78.7 255.255.255.0
+ ipv6 address 2001:CC1E:1:78::7/64
+!
+interface Ethernet0/1.144
+ no shutdown
+ encapsulation dot1Q 144
+ ip address 144.1.0.7 255.255.255.0
+ ipv6 address 2001:C15C:0:1::7/64
+!
+interface Ethernet0/2
+ no shutdown
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no shutdown
+ no ip address
+ shutdown
+!
+!
+router eigrp VRF
+ !
+ address-family ipv4 unicast vrf GREEN autonomous-system 1
+  !
+  af-interface Tunnel0
+   authentication mode hmac-sha-256 DMVPN_VRF_GREEN
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 188.1.100.0 0.0.0.255
+ exit-address-family
+ !
+ address-family ipv4 unicast vrf RED autonomous-system 1
+  !
+  af-interface Tunnel1
+   authentication mode hmac-sha-256 DMVPN_VRF_RED
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 188.1.100.0 0.0.0.255
+ exit-address-family
+ !
+ address-family ipv4 unicast autonomous-system 1
+  !
+  topology base
+  exit-af-topology
+  network 144.1.0.0 0.0.0.255
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd C
+***********************************
+***********************************
+********** LAB 77 TASK 1 **********
+***********************************
+***********************************
+
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ privilege level 15
+ no login
+ transport preferred none
+ transport input telnet
+!
+!
+end

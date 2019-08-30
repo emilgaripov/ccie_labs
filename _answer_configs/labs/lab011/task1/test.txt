@@ -1,0 +1,4 @@
+R2#copy http://188.1.12.1:8080/nvram_00001 null:
+Accessing http://188.1.12.1:8080/nvram_00001...
+Loading http://188.1.12.1:8080/nvram_00001 !!!!!
+1048576 bytes copied in 6.026 secs (174009 bytes/sec)

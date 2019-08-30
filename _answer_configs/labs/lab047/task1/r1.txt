@@ -1,0 +1,169 @@
+
+!
+! Last configuration change at 15:36:04 CET Wed Aug 17 2016
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+clock timezone CET 1 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+username cisco password 0 cisco
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ no shutdown
+ ip address 180.1.1.1 255.255.255.255
+ ipv6 address 2001:C0FF:EE:1::1:1/128
+!
+interface Ethernet0/0
+ no shutdown
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no shutdown
+ ip address 10.0.0.1 255.255.255.0
+!
+interface Ethernet0/1.12
+ no shutdown
+ encapsulation dot1Q 12
+ ip address 188.1.12.1 255.255.255.0
+ ipv6 address 2001:CC1E:1:12::1/64
+!
+interface Ethernet0/2
+ no shutdown
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no shutdown
+ no ip address
+ shutdown
+!
+interface Serial1/0
+ no shutdown
+ no ip address
+ encapsulation ppp
+ serial restart-delay 0
+!
+interface Serial1/1
+ no shutdown
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/2
+ no shutdown
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/3
+ no shutdown
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+alias exec rib event manager run EEM
+banner login CNo banner to login
+banner motd CNo banner to login
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ transport preferred none
+line aux 0
+line vty 0 4
+ no motd-banner
+ privilege level 15
+ login local
+ transport preferred none
+ transport input telnet
+!
+event manager environment FILE unix:ip_route.txt
+event manager applet EEM
+ event none
+ action 1.0 cli command "enable"
+ action 1.1 cli command "show clock | append $FILE"
+ action 1.2 cli command "show ip route | append $FILE"
+ action 1.3 cli command "show ip cef | append $FILE"
+ action 1.4 cli command "more $FILE"
+ action 1.5 puts "$_cli_result"
+ action 1.6 mail server "180.1.2.2" to "support@linkmeup.ru" from "r1@linkmeup.ru" cc "ccie@linkmeup.ru" subject "Data was collected" body "$_cli_result"
+!
+end
